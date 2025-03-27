@@ -114,17 +114,12 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
                 Tables\Columns\ImageColumn::make('featured_image')
-                    ->disk('public'),
+                ->disk('public'),
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                    ->limit(50),
                 Tables\Columns\IconColumn::make('is_published')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('is_fullwidth')
-                    ->label('Full Width')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->dateTime()

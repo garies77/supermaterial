@@ -138,11 +138,12 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('category.name')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\ImageColumn::make('images.0.image_path')
+                ->disk('public')
+                ->label('Image'),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50),
                 Tables\Columns\TextColumn::make('price')
                     ->money('IDR')
                     ->sortable(),
