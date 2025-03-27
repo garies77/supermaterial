@@ -62,7 +62,7 @@
 @section('content')
 
     <!-- Breadcrumb -->
-    <div class="container mx-auto max-w-5xl pt-24 pb-4">
+    <div class="container mx-auto max-w-5xl pt-24 pb-4 px-4 md:px-0">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">

@@ -36,7 +36,7 @@
     </div>
 
     <!-- Product Detail -->
-    <section class="pt-3 md:pt-40 pb-16 md:pb-20" 
+    <section class="pt-2 pb-16 md:pb-20" 
         x-data="{
             currentSlide: 0,
             totalSlides: {{ $product->images ? $product->images->count() : 0 }},
