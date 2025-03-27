@@ -168,7 +168,7 @@
                         </div>
                     @endif
                 </div>
-                <h3 class="text-sm font-medium">{{ $product->name }}</h3>
+                <h3 class="text-sm font-medium line-clamp-1">{{ $product->name }}</h3>
                 <p class="text-sm text-gray-500">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                 
             </a>

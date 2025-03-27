@@ -99,7 +99,7 @@ class FrontController extends Controller
 
             return view('front.article-detail', compact('webInfo', 'article', 'relatedArticles'));
         }else{
-            return redirect()->back()->with('error', 'Data tidak ditemukan');
+            return redirect()->back();
         }
 
     }

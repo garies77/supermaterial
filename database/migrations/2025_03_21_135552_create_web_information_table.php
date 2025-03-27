@@ -16,24 +16,29 @@ return new class extends Migration
             $table->string('site_name');
             $table->string('site_logo')->nullable();
             $table->string('site_favicon')->nullable();
-            $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->text('about_us')->nullable();
-            $table->text('privacy_policy')->nullable();
-            $table->text('terms_conditions')->nullable();
-            
-            // Social media links
-            $table->string('facebook_link')->nullable();
-            $table->string('twitter_link')->nullable();
-            $table->string('instagram_link')->nullable();
-            $table->string('youtube_link')->nullable();
-            $table->string('whatsapp_number')->nullable();
+
+            // Footer Information
+            $table->text('column_1')->nullable();
+            $table->text('column_2')->nullable();
+            $table->text('column_3')->nullable();
+            $table->text('column_4')->nullable();
+
+            // Pages
+            $table->text('home')->nullable();
+            $table->text('product')->nullable();
+            $table->text('article')->nullable();
             
             // SEO settings
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
+            $table->string('meta_image')->nullable();
+            $table->string('meta_url')->nullable();
+
+            // Script
+            $table->text('header_script')->nullable();
+            $table->text('footer_script')->nullable();
             
             $table->timestamps();
         });
