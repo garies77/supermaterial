@@ -55,9 +55,8 @@ class FrontController extends Controller
     public function articles()
     {
         $webInfo = WebInformation::first() ?? new WebInformation();
-        $articles = Article::latest()->paginate(9);
-
-        return view('front.articles', compact('webInfo', 'articles'));
+        // Articles will be loaded by the Livewire component
+        return view('front.articles', compact('webInfo'));
     }
 
     /**
@@ -92,7 +91,13 @@ class FrontController extends Controller
             ->get();
             return view('front.product-detail', compact('webInfo', 'product', 'relatedProducts'));
         } elseif (!empty($article)) {
-            return view('front.article-detail', compact('webInfo', 'article'));
+
+            $relatedArticles = Article::where('id', '!=', $article->id) 
+            ->latest()
+            ->take(3)
+            ->get();
+
+            return view('front.article-detail', compact('webInfo', 'article', 'relatedArticles'));
         }else{
             return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
