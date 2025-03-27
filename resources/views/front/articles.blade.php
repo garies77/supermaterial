@@ -17,18 +17,4 @@
             @livewire('article-search')
         </div>
     </section>
-
-    <!-- Newsletter -->
-    <section class="py-16 md:py-24 bg-gray-50">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="max-w-xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-4">Subscribe to Our Blog</h2>
-                <p class="text-gray-600 mb-8">Get our latest articles and design inspiration delivered straight to your inbox.</p>
-                <form class="flex flex-col md:flex-row gap-4">
-                    <input type="email" placeholder="Your email address" class="px-4 py-3 bg-white border border-gray-300 rounded-full flex-grow focus:outline-none focus:ring-2 focus:ring-black">
-                    <button type="submit" class="px-6 py-3 bg-black text-white font-medium rounded-full hover:bg-gray-800 transition">Subscribe</button>
-                </form>
-            </div>
-        </div>
-    </section>
 @endsection 

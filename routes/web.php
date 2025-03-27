@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\NewsletterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,4 +15,7 @@ Route::get('/products/{slug}', [FrontController::class, 'productDetail'])->name(
 Route::get('/articles', [FrontController::class, 'articles'])->name('articles');
 Route::get('/articles/{slug}', [FrontController::class, 'articleDetail'])->name('article.detail');
 Route::get('/{slug}', [FrontController::class, 'detail'])->name('detail');
+
+// Newsletter subscription
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 

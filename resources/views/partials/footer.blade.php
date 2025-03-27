@@ -2,11 +2,30 @@
 <section class="py-24 px-4 bg-gray-50">
     <div class="container mx-auto max-w-6xl text-center">
         <h2 class="text-3xl font-light mb-6">Sign up for our newsletter</h2>
-        <form class="max-w-md mx-auto">
-            <div class="flex gap-4">
-                <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-300 focus:outline-none focus:border-b border-gray-200lack">
-                <button type="submit" class="px-6 py-3 bg-black text-white hover:bg-gray-800">Subscribe</button>
+        
+        @if (session('success'))
+            <div class="mb-4 p-4 bg-green-100 text-green-800 rounded">
+                {{ session('success') }}
             </div>
+        @endif
+        
+        @if (session('error'))
+            <div class="mb-4 p-4 bg-red-100 text-red-800 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+        
+        <form class="max-w-md mx-auto" action="{{ route('newsletter.subscribe') }}" method="POST">
+            @csrf
+            <div class="flex flex-col md:flex-row gap-4">
+                <input type="email" name="email" placeholder="Enter your email" class="flex-1 px-4 py-3 border border-gray-300 focus:outline-none focus:border-black rounded-md @error('email') border-red-500 @enderror" value="{{ old('email') }}" required>
+                <button type="submit" class="px-6 py-3 bg-black text-white hover:bg-gray-800 rounded-md transition">Subscribe</button>
+            </div>
+            @error('email')
+                <div class="mt-2 text-red-500 text-sm text-left">
+                    {{ $message }}
+                </div>
+            @enderror
         </form>
     </div>
 </section>
