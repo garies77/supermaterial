@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 
 class ProductResource extends Resource
 {
@@ -32,7 +33,6 @@ class ProductResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('category_id')
                                     ->relationship('category', 'name')
-                                    ->required()
                                     ->searchable()
                                     ->preload(),
                                 Forms\Components\TextInput::make('name')
@@ -67,7 +67,7 @@ class ProductResource extends Resource
                                     ->helperText('A brief description that appears on product listings')
                                     ->maxLength(255)
                                     ->columnSpanFull(),
-                                Forms\Components\RichEditor::make('description')
+                                TinyEditor::make('description')
                                     ->required()
                                     ->maxLength(65535)
                                     ->columnSpanFull(),
@@ -103,6 +103,21 @@ class ProductResource extends Resource
                                     ->maxLength(255)
                                     ->url(),
                             ]),
+
+                        Forms\Components\Section::make('Script')
+                            ->schema([
+                                Forms\Components\Textarea::make('header_script')
+                                    ->label('Header Script')
+                                    ->helperText('Script to be added to the header')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                                Forms\Components\Textarea::make('footer_script')
+                                    ->label('Footer Script')
+                                    ->helperText('Script to be added to the footer')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                            ])
+                            ->columns(12),
                     ])->columnSpan(2),
 
                 Forms\Components\Group::make()

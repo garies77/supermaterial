@@ -19,3 +19,7 @@ Route::get('/{slug}', [FrontController::class, 'detail'])->name('detail');
 // Newsletter subscription
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
+Route::get('/prose-example', function () {
+    return view('prose-example');
+});
+

@@ -1,7 +1,15 @@
 <header class="fixed w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200" x-data="{ isOpen: false }">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-            <a href="#" class="text-3xl font-bold tracking-tighter">Cozy®</a>
+            <a href="#" class="text-3xl font-bold tracking-tighter">
+                @if($webInfo->site_logo)
+                    <img src="{{ asset('storage/'.$webInfo->site_logo) }}" alt="Logo" class="w-10 h-10">
+                @elseif($webInfo->site_name)
+                    {{ $webInfo->site_name }}
+                @else
+                    {{ config('app.name', 'Laravel') }}
+                @endif
+            </a>
             
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
@@ -21,10 +29,9 @@
         <!-- Mobile Menu -->
         <div class="md:hidden" x-show="isOpen" @click.away="isOpen = false">
             <div class="pt-4 pb-3 space-y-3">
-                <a href="#" class="block text-gray-600 hover:text-black">Home</a>
-                <a href="#" class="block text-gray-600 hover:text-black">Products</a>
-                <a href="#" class="block text-gray-600 hover:text-black">Articles</a>
-                <a href="#" class="block text-gray-600 hover:text-black">About</a>
+                <a href="{{ route('home') }}" class="block text-gray-600 hover:text-black">Home</a>
+                <a href="{{ route('products') }}" class="block text-gray-600 hover:text-black">Products</a>
+                <a href="{{ route('articles') }}" class="block text-gray-600 hover:text-black">Articles</a>
             </div>
         </div>
     </nav>

@@ -150,13 +150,13 @@
     </div>
 
     <!-- Product Grid -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" wire:loading.class="opacity-50">
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" wire:loading.class="opacity-50">
         @forelse ($products as $product)
             <a href="{{ route('detail', $product->slug) }}" class="group">
                 <div class="aspect-square bg-gray-100 mb-4 overflow-hidden rounded-md">
-                    @if($product->images && $product->images->where('is_primary', true)->first())
+                    @if(!empty($product->getFeaturedImageAttribute()))
                         <img 
-                            src="{{ asset('storage/' . $product->images->where('is_primary', true)->first()->image_path) }}" 
+                            src="{{ asset('storage/' . $product->getFeaturedImageAttribute()) }}" 
                             alt="{{ $product->name }}" 
                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         >

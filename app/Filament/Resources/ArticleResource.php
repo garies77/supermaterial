@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 
 class ArticleResource extends Resource
 {
@@ -33,7 +34,6 @@ class ArticleResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('category_id')
                                     ->relationship('category', 'name')
-                                    ->required()
                                     ->searchable()
                                     ->preload()
                                     ->columnSpan(12),
@@ -66,7 +66,7 @@ class ArticleResource extends Resource
                                 Forms\Components\Textarea::make('excerpt')
                                     ->maxLength(65535)
                                     ->columnSpan(12),
-                                Forms\Components\RichEditor::make('content')
+                                TinyEditor::make('content')
                                     ->required()
                                     ->maxLength(65535)
                                     ->columnSpan(12),
@@ -104,6 +104,22 @@ class ArticleResource extends Resource
                                     ->columnSpan(12),
                             ])
                             ->columns(12),
+
+                        Forms\Components\Section::make('Script')
+                            ->schema([
+                                Forms\Components\Textarea::make('header_script')
+                                    ->label('Header Script')
+                                    ->helperText('Script to be added to the header')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                                Forms\Components\Textarea::make('footer_script')
+                                    ->label('Footer Script')
+                                    ->helperText('Script to be added to the footer')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                            ])
+                            ->columns(12),
+                        
                     ])
                     ->columnSpan(12),
             ])

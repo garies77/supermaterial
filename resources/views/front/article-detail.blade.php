@@ -1,7 +1,64 @@
 @extends('layouts.main')
+@section('meta')
+    {{-- Basic Meta Tags --}}
+    <title>{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel</title>
+    <meta name="description" content="{{ $article->meta_description }}">
+    <meta name="keywords" content="{{ $article->meta_keywords }}">
 
-@section('title', $article->title . ' - Cozy Modern Furniture Store')
+    {{-- Open Graph Meta Tags --}}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
+    <meta property="og:description" content="{{ $article->meta_description }}">
+    <meta property="og:url" content="{{ route('home') }}">
+    <meta property="og:image" content="{{ asset('storage/' . $article->featured_image) }}">
 
+    {{-- Twitter Card Meta Tags --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
+    <meta name="twitter:description" content="{{ $article->meta_description }}">
+    <meta name="twitter:image" content="{{ asset('storage/' . $article->featured_image) }}">
+
+
+    {{-- Article Specific Meta Tags --}}
+    <meta property="article:published_time" content="2025-01-01">
+    <meta property="article:modified_time" content="2025-01-01">
+   
+     <link rel="canonical" href="{{ route('home') }}">
+    
+
+    {{-- Schema.org JSON-LD --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ $article->meta_title ?? config('app.name', 'Laravel') }}",
+        "description": "{{ $article->meta_description }}",
+        "image": "{{ asset('storage/' . $article->featured_image) }}",
+        "datePublished": "2025-01-01",
+        "dateModified": "2025-01-01",
+        "author": {
+            "@type": "Person",
+            "name": "{{ config('app.name', 'Laravel') }}"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{ config('app.name', 'Laravel') }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ asset('images/logo.png') }}"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "{{ route('home') }}"
+        }
+    }
+    </script>
+
+    @if($article->header_script)
+    {!! $article->header_script !!}
+    @endif
+@endsection
 @section('content')
 
     <!-- Breadcrumb -->
@@ -37,7 +94,7 @@
     </div>
 
     <!-- Article Header -->
-    <section class="pt-4  md:pt-4">
+    <section class="pt-4 md:pt-4">
 
         <div class="container px-4 max-w-8xl">
             <div class="max-w-3xl mx-auto">
@@ -68,7 +125,7 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
                 <!-- Main Content -->
                 <div class="md:col-span-8 md:col-start-3">
-                    <div class="prose prose-lg max-w-none leading-10 text-gray-500">
+                    <div class="prose">
                         {!! $article->content !!}
                     </div>
 
@@ -87,7 +144,7 @@
                 <div class="group">
                     <a href="{{ route('article.detail', $relatedArticle->slug) }}">
                         <div class="aspect-[4/3] bg-gray-100 mb-4 overflow-hidden">
-                            <img src="{{ $relatedArticle->featured_image }}" alt="{{ $relatedArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="{{ asset('storage/' . $relatedArticle->featured_image) }}" alt="{{ $relatedArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
                         <h3 class="text-lg font-medium mb-2">{{ $relatedArticle->title }}</h3>
                         <p class="text-sm text-gray-600 mb-4 line-clamp-2">{{ $relatedArticle->excerpt }}</p>
@@ -101,3 +158,8 @@
     @endif
 
 @endsection 
+@section('scripts')
+    @if($article->footer_script)
+    {!! $article->footer_script !!}
+    @endif
+@endsection

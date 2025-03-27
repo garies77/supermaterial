@@ -62,6 +62,7 @@ class Product extends Model
     public function getFeaturedImageAttribute()
     {
         $featuredImage = $this->images()->where('is_primary', true)->first();
-        return $featuredImage ? $featuredImage->image_path : $this->image_path;  
+        
+        return !empty($featuredImage) ? $featuredImage->image_path : $this->images()->first()->image_path;  
     }
 }
