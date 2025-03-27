@@ -1,7 +1,7 @@
 <header class="fixed w-full bg-white/95 backdrop-blur-sm z-50 border-b border-gray-200" x-data="{ isOpen: false }">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
-            <a href="#" class="text-3xl font-bold tracking-tighter">
+            <a href="{{ route('home') }}" class="text-3xl font-bold tracking-tighter">
                 @if($webInfo->site_logo)
                     <img src="{{ asset('storage/'.$webInfo->site_logo) }}" alt="Logo" class="w-10 h-10">
                 @elseif($webInfo->site_name)

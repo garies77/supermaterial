@@ -1,20 +1,20 @@
 @extends('layouts.main')
 @section('meta')
     {{-- Basic Meta Tags --}}
-    <title>{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel</title>
+    <title>{{ $article->meta_title ?? config('app.name', 'Laravel') }} - {{ $webInfo->site_name }} - Artikel</title>
     <meta name="description" content="{{ $article->meta_description }}">
     <meta name="keywords" content="{{ $article->meta_keywords }}">
 
     {{-- Open Graph Meta Tags --}}
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
+    <meta property="og:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - {{ $webInfo->site_name }} - Artikel">
     <meta property="og:description" content="{{ $article->meta_description }}">
     <meta property="og:url" content="{{ route('home') }}">
     <meta property="og:image" content="{{ asset('storage/' . $article->featured_image) }}">
 
     {{-- Twitter Card Meta Tags --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
+    <meta name="twitter:title" content="{{ $article->meta_title ?? config('app.name', 'Laravel') }} - {{ $webInfo->site_name }} - Artikel">
     <meta name="twitter:description" content="{{ $article->meta_description }}">
     <meta name="twitter:image" content="{{ asset('storage/' . $article->featured_image) }}">
 
@@ -45,7 +45,7 @@
             "name": "{{ config('app.name', 'Laravel') }}",
             "logo": {
                 "@type": "ImageObject",
-                "url": "{{ asset('images/logo.png') }}"
+                "url": "{{ asset('storage/' . $webInfo->site_logo) }}"
             }
         },
         "mainEntityOfPage": {

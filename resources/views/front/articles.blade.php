@@ -11,13 +11,13 @@
     <meta property="og:title" content="{{ $webInfo->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
     <meta property="og:description" content="{{ $webInfo->meta_description }}">
     <meta property="og:url" content="{{ route('home') }}">
-    <meta property="og:image" content="{{ asset($webInfo->meta_image ?? 'assets/miloqu-image-meta.jpg') }}">
+    <meta property="og:image" content="{{ asset('storage/' . $webInfo->meta_image) }}">
 
     {{-- Twitter Card Meta Tags --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $webInfo->meta_title ?? config('app.name', 'Laravel') }} - Artikel">
     <meta name="twitter:description" content="{{ $webInfo->meta_description }}">
-    <meta name="twitter:image" content="{{ asset($webInfo->meta_image ?? 'assets/miloqu-image-meta.jpg') }}">
+    <meta name="twitter:image" content="{{ asset('storage/' . $webInfo->meta_image) }}">
 
 
     {{-- Article Specific Meta Tags --}}
@@ -34,7 +34,7 @@
         "@type": "Article",
         "headline": "{{ $webInfo->meta_title ?? config('app.name', 'Laravel') }}",
         "description": "{{ $webInfo->meta_description }}",
-        "image": "{{ asset($webInfo->meta_image ?? 'assets/miloqu-image-meta.jpg') }}",
+        "image": "{{ asset('storage/' . $webInfo->meta_image) }}",
         "datePublished": "2025-01-01",
         "dateModified": "2025-01-01",
         "author": {
@@ -46,7 +46,7 @@
             "name": "{{ config('app.name', 'Laravel') }}",
             "logo": {
                 "@type": "ImageObject",
-                "url": "{{ asset('images/logo.png') }}"
+                "url": "{{ asset('storage/' . $webInfo->site_logo) }}"
             }
         },
         "mainEntityOfPage": {
