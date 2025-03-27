@@ -28,38 +28,8 @@ class FrontController extends Controller
     public function products(Request $request)
     {
         $webInfo = WebInformation::first() ?? new WebInformation();
-        $query = Product::query();
-        
-        // Apply category filter if provided
-        if ($request->has('category')) {
-            $query->whereHas('categories', function($q) use ($request) {
-                $q->where('slug', $request->category);
-            });
-        }
-
-        // Apply sorting
-        if ($request->has('sort')) {
-            switch ($request->sort) {
-                case 'price_low':
-                    $query->orderBy('price', 'asc');
-                    break;
-                case 'price_high':
-                    $query->orderBy('price', 'desc');
-                    break;
-                case 'newest':
-                    $query->orderBy('created_at', 'desc');
-                    break;
-                default:
-                    $query->orderBy('created_at', 'desc');
-            }
-        } else {
-            $query->orderBy('created_at', 'desc');
-        }
-
-        $products = $query->paginate(12);
-        $categories = Category::all();
-
-        return view('front.products', compact('webInfo', 'products', 'categories'));
+        // Products will be loaded by the Livewire component
+        return view('front.products', compact('webInfo'));
     }
 
     /**

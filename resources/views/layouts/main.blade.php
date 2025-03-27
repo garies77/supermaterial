@@ -7,6 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @yield('styles')
+    @livewireStyles
 </head>
 <body class="font-[Inter] bg-white">
     <!-- Header -->
@@ -21,5 +22,6 @@
     @include('partials.footer')
 
     @yield('scripts')
+    @livewireScripts
 </body>
 </html> 

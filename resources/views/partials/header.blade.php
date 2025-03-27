@@ -5,10 +5,9 @@
             
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-gray-600 hover:text-black">Home</a>
-                <a href="#" class="text-gray-600 hover:text-black">Products</a>
-                <a href="#" class="text-gray-600 hover:text-black">Articles</a>
-                <a href="#" class="text-gray-600 hover:text-black">About</a>
+                <a href="{{ route('home') }}" class="text-gray-600 hover:text-black">Home</a>
+                <a href="{{ route('products') }}" class="text-gray-600 hover:text-black">Products</a>
+                <a href="{{ route('articles') }}" class="text-gray-600 hover:text-black">Articles</a>
             </div>
 
             <!-- Mobile Menu Button -->
