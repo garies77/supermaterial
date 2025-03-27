@@ -34,7 +34,6 @@ return new class extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
             $table->string('meta_image')->nullable();
-            $table->string('meta_url')->nullable();
 
             // Script
             $table->text('header_script')->nullable();

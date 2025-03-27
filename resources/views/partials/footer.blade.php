@@ -32,39 +32,22 @@
 
 <footer class="py-12 px-4 border-t border-gray-200">
     <div class="container mx-auto max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-                <h3 class="text-xl font-bold mb-4">Cozy®</h3>
-                <p class="text-sm text-gray-500">Monday - Friday: 9:00 AM - 10:00 PM<br>
-                Saturday - Sunday: 9:00 AM - 11:00 PM</p>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 text-gray-500">
+            <div class="col-span-2">
+                {!! $webInfo->column_1 !!}
             </div>
             <div>
-                <h4 class="font-medium mb-4">Shop</h4>
-                <ul class="space-y-2 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-black">New Arrivals</a></li>
-                    <li><a href="#" class="hover:text-black">Best Sellers</a></li>
-                    <li><a href="#" class="hover:text-black">Sale</a></li>
-                </ul>
+                {!! $webInfo->column_2 !!}
             </div>
             <div>
-                <h4 class="font-medium mb-4">Help</h4>
-                <ul class="space-y-2 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-black">Shipping</a></li>
-                    <li><a href="#" class="hover:text-black">Returns</a></li>
-                    <li><a href="#" class="hover:text-black">Contact</a></li>
-                </ul>
+                {!! $webInfo->column_3 !!}
             </div>
             <div>
-                <h4 class="font-medium mb-4">Follow Us</h4>
-                <ul class="space-y-2 text-sm text-gray-500">
-                    <li><a href="#" class="hover:text-black">Instagram</a></li>
-                    <li><a href="#" class="hover:text-black">Pinterest</a></li>
-                    <li><a href="#" class="hover:text-black">Twitter</a></li>
-                </ul>
+                {!! $webInfo->column_4 !!}
             </div>
         </div>
         <div class="mt-12 pt-8 border-t text-sm text-gray-500 border-gray-200">
-            <p>&copy; 2024 Cozy. All rights reserved.</p>
+            <p>&copy; 2024 Cozy. All rights reserved. </p> 
         </div>
     </div>
 </footer>

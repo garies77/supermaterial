@@ -7,6 +7,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 
 class ManageWebSettings extends Page
 {
@@ -62,53 +63,55 @@ class ManageWebSettings extends Page
                                     ->disk('public')
                                     ->directory('website')
                                     ->columnSpan(6),
-                                Forms\Components\TextInput::make('email')
-                                    ->email()
-                                    ->maxLength(255)
-                                    ->columnSpan(6),
                                 Forms\Components\TextInput::make('phone')
+                                    ->tel()
                                     ->maxLength(255)
-                                    ->columnSpan(6),
-                                Forms\Components\Textarea::make('address')
-                                    ->maxLength(65535)
                                     ->columnSpan(12),
                             ])
                             ->columns(12),
 
-                        Forms\Components\Tabs\Tab::make('Content')
+                        Forms\Components\Tabs\Tab::make('Footer Information')
                             ->schema([
-                                Forms\Components\RichEditor::make('about_us')
+                                //     ->columnSpan(6),
+                                TinyEditor::make('column_1')
+                                    ->label('Column 1 Content')
+                                    ->helperText('Content for the first footer column')
                                     ->maxLength(65535)
-                                    ->columnSpan(12),
-                                Forms\Components\RichEditor::make('privacy_policy')
+                                    ->columnSpan(6),
+                                TinyEditor::make('column_2')
+                                    ->label('Column 2 Content')
+                                    ->helperText('Content for the second footer column')
                                     ->maxLength(65535)
-                                    ->columnSpan(12),
-                                Forms\Components\RichEditor::make('terms_conditions')
+                                    ->columnSpan(6),
+                                TinyEditor::make('column_3')
+                                    ->label('Column 3 Content')
+                                    ->helperText('Content for the third footer column')
                                     ->maxLength(65535)
-                                    ->columnSpan(12),
+                                    ->columnSpan(6),
+                                TinyEditor::make('column_4')
+                                    ->label('Column 4 Content')
+                                    ->helperText('Content for the fourth footer column')
+                                    ->maxLength(65535)
+                                    ->columnSpan(6),
                             ])
                             ->columns(12),
 
-                        Forms\Components\Tabs\Tab::make('Social Media')
+                        Forms\Components\Tabs\Tab::make('Page Content')
                             ->schema([
-                                Forms\Components\TextInput::make('facebook_link')
-                                    ->url()
-                                    ->maxLength(255)
-                                    ->columnSpan(6),
-                                Forms\Components\TextInput::make('twitter_link')
-                                    ->url()
-                                    ->maxLength(255)
-                                    ->columnSpan(6),
-                                Forms\Components\TextInput::make('instagram_link')
-                                    ->url()
-                                    ->maxLength(255)
-                                    ->columnSpan(6),
-                                Forms\Components\TextInput::make('youtube_link')
-                                    ->url()
-                                    ->maxLength(255)
-                                    ->columnSpan(6),
-                                Forms\Components\TextInput::make('whatsapp_number')
-                                    ->maxLength(255)
+                                TinyEditor::make('home')
+                                    ->label('Home Page Content')
+                                    ->helperText('Content specific to the home page')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                                TinyEditor::make('product')
+                                    ->label('Product Page Content')
+                                    ->helperText('Content specific to product pages')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                                TinyEditor::make('article')
+                                    ->label('Article Page Content')
+                                    ->helperText('Content specific to article pages')
+                                    ->maxLength(65535)
                                     ->columnSpan(12),
                             ])
                             ->columns(12),
@@ -123,6 +126,26 @@ class ManageWebSettings extends Page
                                     ->columnSpan(12),
                                 Forms\Components\TextInput::make('meta_keywords')
                                     ->maxLength(255)
+                                    ->columnSpan(12),
+                                Forms\Components\FileUpload::make('meta_image')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('website/seo')
+                                    ->columnSpan(12),
+                            ])
+                            ->columns(12),
+                            
+                        Forms\Components\Tabs\Tab::make('Scripts')
+                            ->schema([
+                                Forms\Components\Textarea::make('header_script')
+                                    ->label('Header Scripts')
+                                    ->helperText('Scripts to be included in the <head> section (Analytics, Meta pixels, etc.)')
+                                    ->maxLength(65535)
+                                    ->columnSpan(12),
+                                Forms\Components\Textarea::make('footer_script')
+                                    ->label('Footer Scripts')
+                                    ->helperText('Scripts to be included before the closing </body> tag')
+                                    ->maxLength(65535)
                                     ->columnSpan(12),
                             ])
                             ->columns(12),

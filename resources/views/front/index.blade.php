@@ -5,7 +5,7 @@
 @section('content')
     <section class="pt-36 pb-12 px-4">
         <div class="container mx-auto max-w-6xl">
-            <h1 class="text-4xl md:text-6xl font-light mb-6">Discover top furniture bestsellers and explore the latest styles.</h1>
+            {!! $webInfo->home !!}
         </div>
     </section>
 
