@@ -46,7 +46,27 @@ class ProductResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(ignoreRecord: true)
+                                    ->rules([
+                                        function () {
+                                            return function (string $attribute, $value, \Closure $fail) {
+                                                // Only validate on create, not on edit
+                                                if (request()->routeIs('filament.admin.resources.products.create')) {
+                                                    // Check if slug exists in articles table
+                                                    if (\App\Models\Article::where('slug', $value)->exists()) {
+                                                        $fail("This slug is already in use by an article.");
+                                                    }elseif(\App\Models\Product::where('slug', $value)->exists()){
+                                                        $fail("This slug is already in use by a product.");
+                                                    }
+                                                }
+                                            };
+                                        },
+                                    ])
                                     ->disabled(fn (string $context): bool => $context === 'edit'),
+                                Forms\Components\Textarea::make('short_description')
+                                    ->label('Short Description')
+                                    ->helperText('A brief description that appears on product listings')
+                                    ->maxLength(255)
+                                    ->columnSpanFull(),
                                 Forms\Components\RichEditor::make('description')
                                     ->required()
                                     ->maxLength(65535)

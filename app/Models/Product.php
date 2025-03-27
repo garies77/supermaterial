@@ -24,6 +24,7 @@ class Product extends Model
         'meta_keywords',
         'tokopedia_link',
         'shopee_link',
+        'short_description',
     ];
     
     /**
@@ -60,7 +61,7 @@ class Product extends Model
      */
     public function getFeaturedImageAttribute()
     {
-        $featuredImage = $this->images()->where('is_featured', true)->first();
-        return $featuredImage ? $featuredImage->image : $this->image;
+        $featuredImage = $this->images()->where('is_primary', true)->first();
+        return $featuredImage ? $featuredImage->image_path : $this->image_path;  
     }
 }

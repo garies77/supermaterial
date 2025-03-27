@@ -3,23 +3,111 @@
 @section('title', $product->name . ' - Cozy Modern Furniture Store')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <div class="container mx-auto px-4 max-w-6xl pt-24 pb-4">
+        <nav class="flex" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{{ route('home') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                        </svg>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <a href="{{ route('products') }}" class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2">Products</a>
+                    </div>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">{{ $product->name }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+    </div>
+
     <!-- Product Detail -->
-    <section class="pt-32 pb-16 md:py-20">
+    <section class="pt-32 pb-16 md:py-2" 
+        x-data="{
+            currentSlide: 0,
+            totalSlides: {{ $product->images ? $product->images->count() : 0 }},
+            goToSlide(index) {
+                this.currentSlide = index;
+            },
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+            },
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+            }
+        }">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-                <!-- Product Image -->
+                <!-- Product Image Slider -->
                 <div>
-                    <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                        <img src="{{ $product->featured_image }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
-                    </div>
-                    
-                    @if($product->images && count($product->images) > 0)
-                    <div class="grid grid-cols-4 gap-4">
-                        @foreach($product->images as $image)
-                        <div class="aspect-square bg-gray-100 cursor-pointer">
-                            <img src="{{ $image }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                    @if($product->images && $product->images->count() > 0)
+                    <!-- Main Image Slider -->
+                    <div class="aspect-square bg-gray-100 mb-4 overflow-hidden relative">
+                        <!-- Slides -->
+                        @foreach($product->images->sortBy('sort_order') as $index => $image)
+                        <div x-show="currentSlide === {{ $index }}"
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="opacity-0 transform scale-95"
+                             x-transition:enter-end="opacity-100 transform scale-100"
+                             class="h-full w-full rounded-md overflow-hidden">
+                            <img 
+                                src="{{ asset('storage/' . $image->image_path) }}" 
+                                alt="{{ $image->alt_text ?? $product->name }}" 
+                                class="w-full h-full object-cover"
+                            >
                         </div>
                         @endforeach
+                        
+                        <!-- Navigation Arrows -->
+                        <button @click="prevSlide" 
+                               class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-2 rounded-full shadow-md focus:outline-none transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button @click="nextSlide" 
+                               class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-2 rounded-full shadow-md focus:outline-none transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Thumbnail Navigation -->
+                    <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide py-2 px-1">
+                        @foreach($product->images->sortBy('sort_order') as $index => $image)
+                        <button 
+                            @click="goToSlide({{ $index }})" 
+                            class="flex-shrink-0 aspect-square bg-gray-100 cursor-pointer rounded-md overflow-hidden ring-2 transition w-20 h-20"
+                            :class="currentSlide === {{ $index }} ? 'ring-black' : 'ring-transparent hover:ring-gray-300'">
+                            <img 
+                                src="{{ asset('storage/' . $image->image_path) }}" 
+                                alt="{{ $image->alt_text ?? $product->name }}" 
+                                class="w-full h-full object-cover"
+                            >
+                        </button>
+                        @endforeach
+                    </div>
+                    @else
+                    <!-- Fallback if no images available -->
+                    <div class="aspect-square bg-gray-100 mb-4 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
                     </div>
                     @endif
                 </div>
@@ -27,18 +115,31 @@
                 <!-- Product Info -->
                 <div>
                     <h1 class="text-3xl font-bold mb-2">{{ $product->name }}</h1>
-                    <p class="text-xl mb-6">${{ number_format($product->price, 2) }}</p>
-                    
-                    <div class="prose prose-sm mb-6 text-gray-600">
-                        {!! $product->description !!}
+                    <p class="text-xl mb-6">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
+                   
+                    <!-- Category -->
+                    @if($product->category)
+                    <div class="mb-4">
+                        <span class="inline-block bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">
+                            {{ $product->category->name }}
+                        </span>
                     </div>
+                    @endif
+
+                    <!-- Short Description -->
                     
-                    @if($product->is_in_stock)
-                    <div class="flex items-center text-sm text-green-600 mb-6">
-                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        In Stock
+
+                    @if($product->stock > 0)
+                    <div class="mb-6">
+                        <label for="quantity" class="block text-sm font-medium mb-2">Quantity</label>
+                        <div class="flex items-center">
+                            
+                            <input type="text" 
+                                  id="quantity" 
+                                  value="{{ $product->stock }}"
+                                  disabled
+                                  class="w-16 h-10 border border-gray-300 text-center rounded-md">
+                        </div>
                     </div>
                     @else
                     <div class="flex items-center text-sm text-red-600 mb-6">
@@ -49,118 +150,72 @@
                     </div>
                     @endif
                     
-                    <form class="mb-8">
-                        @if($product->has_variants && isset($product->variants) && count($product->variants) > 0)
-                        <div class="mb-6">
-                            <label for="variant" class="block text-sm font-medium mb-2">{{ $product->variant_name ?? 'Options' }}</label>
-                            <select id="variant" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black">
-                                @foreach($product->variants as $variant)
-                                <option value="{{ $variant->id }}">{{ $variant->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @endif
                         
-                        <div class="mb-6">
-                            <label for="quantity" class="block text-sm font-medium mb-2">Quantity</label>
-                            <div class="flex items-center">
-                                <button type="button" class="w-10 h-10 border border-gray-300 rounded-l-md flex items-center justify-center">-</button>
-                                <input type="number" id="quantity" min="1" value="1" class="w-16 h-10 border-t border-b border-gray-300 text-center">
-                                <button type="button" class="w-10 h-10 border border-gray-300 rounded-r-md flex items-center justify-center">+</button>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="w-full bg-black text-white py-3 px-6 rounded-full font-medium hover:bg-gray-800 transition">
-                            Add to Cart
-                        </button>
-                    </form>
                     
-                    <div class="space-y-4 text-sm">
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                            <span>Free shipping on orders over $50</span>
-                        </div>
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                            </svg>
-                            <span>Easy 30-day returns</span>
-                        </div>
-                        <div class="flex items-start">
-                            <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01"></path>
-                            </svg>
-                            <span>1-year warranty included</span>
+                    <!-- E-commerce links -->
+                    @if($product->tokopedia_link || $product->shopee_link)
+                    <div class="mb-6">
+                        <p class="text-sm font-medium mb-2">Also available on:</p>
+                        <div class="flex space-x-3">
+                            @if($product->tokopedia_link)
+                            <a href="{{ $product->tokopedia_link }}" target="_blank" class="flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                                <img src="{{ asset('images/tokopedia.png') }}" alt="Tokopedia" class="w-4 h-4 mr-2">
+                                <span>Tokopedia</span>
+                            </a>
+                            @endif
+                            
+                            @if($product->shopee_link)
+                            <a href="{{ $product->shopee_link }}" target="_blank" class="flex items-center px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                                <img src="{{ asset('images/shoope.png') }}" alt="Shopee" class="w-4 h-4 mr-2">
+                                <span>Shopee</span>
+                            </a>
+                            @endif
                         </div>
                     </div>
+                    @endif
+
+                    @if($product->short_description)
+                        <div class="mb-6">
+                            <p class="text-gray-500 text-sm">{{ $product->short_description }}</p>
+                        </div>
+                    @endif
+                    
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Product Specifications -->
-    <section class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h2 class="text-xl font-bold mb-4">Specifications</h2>
-                    <table class="w-full text-sm">
-                        <tbody>
-                            @if($product->dimensions)
-                            <tr>
-                                <td class="py-2 text-gray-600">Dimensions</td>
-                                <td class="py-2 font-medium">{{ $product->dimensions }}</td>
-                            </tr>
-                            @endif
-                            @if($product->weight)
-                            <tr>
-                                <td class="py-2 text-gray-600">Weight</td>
-                                <td class="py-2 font-medium">{{ $product->weight }}</td>
-                            </tr>
-                            @endif
-                            @if($product->material)
-                            <tr>
-                                <td class="py-2 text-gray-600">Material</td>
-                                <td class="py-2 font-medium">{{ $product->material }}</td>
-                            </tr>
-                            @endif
-                            @if($product->sku)
-                            <tr>
-                                <td class="py-2 text-gray-600">SKU</td>
-                                <td class="py-2 font-medium">{{ $product->sku }}</td>
-                            </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div class="md:col-span-2">
-                    <h2 class="text-xl font-bold mb-4">Features</h2>
-                    <div class="prose prose-sm">
-                        {!! $product->features !!}
-                    </div>
+
+            <div class="space-y-2 text-sm mt-5">
+                <h2 class="text-xl font-bold mb-4">Description</h2>
+                <div class="prose prose-sm leading-8">
+                    {!! $product->description !!}
                 </div>
             </div>
+
         </div>
+
+
     </section>
     
     <!-- Related Products -->
-    @if(count($relatedProducts) > 0)
+    @if(isset($relatedProducts) && count($relatedProducts) > 0)
     <section class="py-16">
         <div class="container mx-auto px-4 max-w-6xl">
-            <h2 class="text-2xl font-bold mb-8">You May Also Like</h2>
+            <h2 class="text-xl font-bold mb-8">Rekomendasi untuk Anda</h2>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
                 @foreach($relatedProducts as $relatedProduct)
                 <div class="group">
-                    <a href="{{ route('product.detail', $relatedProduct->slug) }}">
+                    <a href="{{ route('detail', $relatedProduct->slug) }}">
                         <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="{{ $relatedProduct->featured_image }}" alt="{{ $relatedProduct->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            @if($relatedProduct->images && $relatedProduct->images->where('is_primary', true)->first())
+                            <img 
+                                src="{{ asset('storage/' . $relatedProduct->images->where('is_primary', true)->first()->image_path) }}" 
+                                alt="{{ $relatedProduct->name }}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            >
+                            @endif
                         </div>
                         <h3 class="text-sm font-medium">{{ $relatedProduct->name }}</h3>
-                        <p class="text-sm text-gray-500">${{ number_format($relatedProduct->price, 2) }}</p>
+                        <p class="text-sm text-gray-500">Rp {{ number_format($relatedProduct->price, 0, ',', '.') }}</p>
                     </a>
                 </div>
                 @endforeach

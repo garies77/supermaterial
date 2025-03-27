@@ -13,9 +13,9 @@
     <section class="py-12 px-4">
         <div class="container mx-auto max-w-6xl">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-xl font-medium">Furniture Best Seller</h2>
+                <h2 class="text-xl font-medium">Produk Terbaru</h2>
                 <div class="flex items-center space-x-4">
-                    <button class="text-sm text-gray-500 hover:text-black underline">More</button>
+                    <a href="{{ route('products') }}" class="text-sm text-gray-500 hover:text-black underline">Lebih Banyak</a>
                 </div>
             </div>
 
@@ -109,9 +109,9 @@
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                 <!-- Product Cards -->
                 @foreach ($products as $product)
-                    <a href="{{ route('product.detail', $product->id) }}" class="group">
+                    <a href="{{ route('detail', $product->slug) }}" class="group">
                         <div class="aspect-square bg-gray-100 mb-4 overflow-hidden">
-                            <img src="{{ asset('storage/' . $product->images->first()->image_path) }}" alt="Modern Chair" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="{{ asset('storage/' . $product->getFeaturedImageAttribute()) }}" alt="Modern Chair" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
                         <h3 class="text-sm font-medium">{{ $product->name }}</h3>
                         <p class="text-sm text-gray-500">RP. {{ number_format($product->price, 0, ',', '.') }}</p>

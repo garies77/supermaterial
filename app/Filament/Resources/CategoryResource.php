@@ -38,7 +38,17 @@ class CategoryResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true)
-                            ->disabled(fn (string $context): bool => $context === 'edit'),
+                            ->disabled(fn (string $context): bool => $context === 'edit')
+                            ->rules([   
+                                function () {
+                                    return function (string $attribute, $value, \Closure $fail) {
+                                        if (\App\Models\Category::where('slug', $value)->exists()) {
+                                            $fail("This slug is already in use by a category.");
+                                        }
+                                    };
+                                },
+                            ])
+                            ,
                         Forms\Components\Textarea::make('description')
                             ->maxLength(65535)
                             ->columnSpanFull(),

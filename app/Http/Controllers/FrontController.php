@@ -16,11 +16,10 @@ class FrontController extends Controller
     public function index()
     {
         $webInfo = WebInformation::first() ?? new WebInformation();
-        $products = Product::take(8)->get();
-        $categories = Category::take(4)->get();
-        $latestArticles = Article::latest()->take(3)->get();
+        $products = Product::take(8)->orderBy('id', 'desc')->get();
+        $categories = Category::select('name', 'slug')->get();
 
-        return view('front.index', compact('webInfo', 'products', 'categories', 'latestArticles'));
+        return view('front.index', compact('webInfo', 'products', 'categories'));
     }
 
     /**
@@ -104,5 +103,29 @@ class FrontController extends Controller
             ->get();
 
         return view('front.article-detail', compact('webInfo', 'article', 'relatedArticles'));
+    }
+
+    public function detail($slug)
+    {
+        $webInfo = WebInformation::first() ?? new WebInformation();
+        $product = Product::where('slug', $slug)->first();
+        $article = Article::where('slug', $slug)->first();
+        if (!empty($product)) {
+            // Get related products that share categories with the current product
+            $relatedProducts = Product::whereHas('category', function($query) use ($product) {
+                $query->where('categories.id', $product->category_id);
+            })
+            ->where('id', '!=', $product->id)   
+            ->where('is_active', true)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+            return view('front.product-detail', compact('webInfo', 'product', 'relatedProducts'));
+        } elseif (!empty($article)) {
+            return view('front.article-detail', compact('webInfo', 'article'));
+        }else{
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
+        }
+
     }
 }

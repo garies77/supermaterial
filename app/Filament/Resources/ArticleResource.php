@@ -49,6 +49,18 @@ class ArticleResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(ignoreRecord: true)
+                                    ->rules([
+                                        function () {
+                                            return function (string $attribute, $value, \Closure $fail) {
+                                                // Check if slug exists in products table
+                                                if (\App\Models\Product::where('slug', $value)->exists()) {
+                                                    $fail("This slug is already in use by a product.");
+                                                }elseif(\App\Models\Article::where('slug', $value)->exists()){
+                                                    $fail("This slug is already in use by an article.");
+                                                }
+                                            };
+                                        },
+                                    ])
                                     ->disabled(fn (string $context): bool => $context === 'edit')
                                     ->columnSpan(12),
                                 Forms\Components\Textarea::make('excerpt')
