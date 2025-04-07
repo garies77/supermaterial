@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="mt-12 pt-8 border-t text-sm text-gray-500 border-gray-200">
-            <p>&copy; 2024 Cozy. All rights reserved. </p> 
+            <p>&copy; {{ date('Y') }} {{ $webInfo->site_name }}. All rights reserved. </p> 
         </div>
     </div>
 </footer>
