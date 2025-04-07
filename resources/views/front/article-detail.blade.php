@@ -96,16 +96,14 @@
     <!-- Article Header -->
     <section class="pt-4 md:pt-4">
 
-        <div class="container px-4 max-w-8xl">
-            <div class="max-w-3xl mx-auto">
-                <h1 class="text-xl md:text-4xl mb-2">{{ $article->title }}</h1>
-                <div class="flex items-center text-sm text-gray-500 mb-8">
-                    <span>{{ $article->created_at->format('F d, Y') }}</span>
-                    @if($article->reading_time)
-                    <span class="mx-2">•</span>
-                    <span>{{ $article->reading_time }} min read</span>
-                    @endif
-                </div>
+        <div class="container px-4 md:px-0 max-w-5xl mx-auto">
+            <h1 class="text-xl md:text-4xl mb-2">{{ $article->title }}</h1>
+            <div class="flex items-center text-sm text-gray-500 mb-8">
+                <span>{{ $article->created_at->format('F d, Y') }}</span>
+                @if($article->reading_time)
+                <span class="mx-2">•</span>
+                <span>{{ $article->reading_time }} min read</span>
+                @endif
             </div>
         </div>
     </section>
