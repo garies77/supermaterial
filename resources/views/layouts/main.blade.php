@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @yield('styles')
 
+    {!! $webInfo->header_script !!}
 
     @livewireStyles
 </head>
@@ -32,6 +33,8 @@
 
     <!-- Footer -->
     @include('partials.footer')
+
+    {!! $webInfo->footer_script !!}
 
     @yield('scripts')
     @livewireScripts
