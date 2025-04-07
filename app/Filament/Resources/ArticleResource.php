@@ -52,11 +52,12 @@ class ArticleResource extends Resource
                                     ->rules([
                                         function () {
                                             return function (string $attribute, $value, \Closure $fail) {
-                                                // Check if slug exists in products table
-                                                if (\App\Models\Product::where('slug', $value)->exists()) {
-                                                    $fail("This slug is already in use by a product.");
-                                                }elseif(\App\Models\Article::where('slug', $value)->exists()){
-                                                    $fail("This slug is already in use by an article.");
+                                                if (request()->routeIs('filament.admin.resources.products.create')) {
+                                                    if (\App\Models\Product::where('slug', $value)->exists()) {
+                                                        $fail("This slug is already in use by a product.");
+                                                    }elseif(\App\Models\Article::where('slug', $value)->exists()){
+                                                        $fail("This slug is already in use by an article.");
+                                                    }
                                                 }
                                             };
                                         },
