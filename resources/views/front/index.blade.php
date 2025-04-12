@@ -66,6 +66,10 @@
         </div>
     </section>
 
+    @if($webInfo->home_header_component)
+        {!! $webInfo->home_header_component !!}
+    @endif
+
     <!-- Featured Products -->
     <section class="py-12 px-4">
         <div class="container mx-auto max-w-6xl">
@@ -80,4 +84,8 @@
             
         </div>
     </section>
+
+    @if($webInfo->home_footer_component)
+        {!! $webInfo->home_footer_component !!}
+    @endif
 @endsection

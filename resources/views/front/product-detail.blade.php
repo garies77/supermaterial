@@ -94,6 +94,10 @@
         </nav>
     </div>
 
+    @if($webInfo->product_detail_header_component)
+        {!! $webInfo->product_detail_header_component !!}
+    @endif
+
     <!-- Product Detail -->
     <section class="pt-2 pb-16 md:pb-20" 
         x-data="{
@@ -253,6 +257,10 @@
 
 
     </section>
+
+    @if($webInfo->product_detail_footer_component)
+        {!! $webInfo->product_detail_footer_component !!}
+    @endif
     
     <!-- Related Products -->
     @if(isset($relatedProducts) && count($relatedProducts) > 0)

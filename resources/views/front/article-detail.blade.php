@@ -93,6 +93,10 @@
         </nav>
     </div>
 
+    @if($webInfo->article_detail_header_component)
+        {!! $webInfo->article_detail_header_component !!}
+    @endif
+
     <!-- Article Header -->
     <section class="pt-4 md:pt-4">
 
@@ -108,6 +112,7 @@
         </div>
     </section>
 
+    @if(!empty($article->featured_image))
     <!-- Featured Image -->
     <section class="pb-12">
         <div class="container mx-auto max-w-5xl">
@@ -116,7 +121,7 @@
             </div>
         </div>
     </section>
-
+    @endif
     <!-- Article Content -->
     <section class="pb-16 md:pb-24">
         <div class="container mx-auto px-4 max-w-5xl">
@@ -130,6 +135,10 @@
             </div>
         </div>
     </section>
+
+    @if($webInfo->article_detail_footer_component)
+        {!! $webInfo->article_detail_footer_component !!}
+    @endif
 
     <!-- Related Articles -->
     @if(count($relatedArticles) > 0)

@@ -66,7 +66,15 @@
         </div>
     </section>
 
+    @if($webInfo->product_header_component)
+        {!! $webInfo->product_header_component !!}
+    @endif
+
     <section class="container mx-auto max-w-6xl px-4 py-8">
         @livewire('product-listing')
     </section>
+
+    @if($webInfo->product_footer_component)
+        {!! $webInfo->product_footer_component !!}
+    @endif
 @endsection

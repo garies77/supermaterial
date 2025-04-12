@@ -67,10 +67,18 @@
         </div>
     </section>
 
+    @if($webInfo->article_header_component)
+        {!! $webInfo->article_header_component !!}
+    @endif
+
     <!-- Articles Grid with Search -->
     <section class="py-12 md:py-16">
         <div class="container mx-auto px-4 max-w-6xl">
             @livewire('article-search')
         </div>
     </section>
+
+    @if($webInfo->article_footer_component)
+        {!! $webInfo->article_footer_component !!}
+    @endif
 @endsection 

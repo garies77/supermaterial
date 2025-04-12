@@ -8,6 +8,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use AmidEsfahani\FilamentTinyEditor\TinyEditor;
+use Filament\Forms\Components\Textarea;
 
 class ManageWebSettings extends Page
 {
@@ -149,6 +150,80 @@ class ManageWebSettings extends Page
                                     ->columnSpan(12),
                             ])
                             ->columns(12),
+                        Forms\Components\Tabs\Tab::make('Page Components')
+                            ->schema([
+                                Forms\Components\Card::make()
+                                    ->schema([
+                                        Textarea::make('home_header_component')
+                                            ->label('Home Header Component')
+                                            ->helperText('Component for the home page header')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('home_footer_component')
+                                            ->label('Home Footer Component')
+                                            ->helperText('Component for the home page footer')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                    ])
+                                    ->heading('Home Page Components')
+                                    ->columnSpan(12),
+                                Forms\Components\Card::make()
+                                    ->schema([
+                                        Textarea::make('product_header_component')
+                                            ->label('Product Header Component')
+                                            ->helperText('Component for the product page header')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('product_footer_component')
+                                            ->label('Product Footer Component')
+                                            ->helperText('Component for the product page footer')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+
+                                        Textarea::make('product_detail_header_component')
+                                            ->label('Product Detail Header Component')
+                                            ->helperText('Component for the product detail page header')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('product_detail_footer_component')
+                                            ->label('Product Detail Footer Component')
+                                            ->helperText('Component for the product detail page footer')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                            
+                                            
+                                    ])
+                                    ->heading('Product Page Components')
+                                    ->columnSpan(12),
+                                Forms\Components\Card::make()
+                                    ->schema([
+                                        Textarea::make('article_header_component')
+                                            ->label('Article Header Component')
+                                            ->helperText('Component for the article page header')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('article_footer_component')
+                                            ->label('Article Footer Component')
+                                            ->helperText('Component for the article page footer')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('article_detail_header_component')
+                                            ->label('Article Detail Header Component')
+                                            ->helperText('Component for the article detail page header')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                        Textarea::make('article_detail_footer_component')
+                                            ->label('Article Detail Footer Component')
+                                            ->helperText('Component for the article detail page footer')
+                                            ->maxLength(65535)
+                                            ->columnSpan(12),
+                                    ])
+                                    ->heading('Article Page Components')
+                                    ->columnSpan(12),
+                            ])
+                            ->columns(12),
+                                    
+
                     ])
                     ->columnSpanFull(),
             ])
