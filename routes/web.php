@@ -3,10 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\NewsletterController;
+use Illuminate\Support\Facades\Artisan;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/generate-sitemap', function () {
+    
+    Artisan::call('sitemap:generate');
+    return 'Sitemap generated successfully!';
+})->middleware('throttle:3,1'); 
 
 // Front-end routes
 Route::get('/', [FrontController::class, 'index'])->name('home');
@@ -22,4 +31,6 @@ Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
 Route::get('/prose-example', function () {
     return view('prose-example');
 });
+
+
 

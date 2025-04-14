@@ -222,6 +222,17 @@ class ManageWebSettings extends Page
                                     ->columnSpan(12),
                             ])
                             ->columns(12),
+                        Forms\Components\Tabs\Tab::make('Generate Sitemap')
+                            ->schema([
+                                Forms\Components\Actions::make([
+                                    Forms\Components\Actions\Action::make('generateSitemap')
+                                        ->label('Generate Sitemap')
+                                        ->url('/generate-sitemap')
+                                        ->openUrlInNewTab()
+                                ])
+                                ->columnSpan(12),
+                            ])
+                            ->columns(12),
                                     
 
                     ])

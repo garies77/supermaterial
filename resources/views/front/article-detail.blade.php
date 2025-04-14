@@ -149,7 +149,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 @foreach($relatedArticles as $relatedArticle)
                 <div class="group">
-                    <a href="{{ route('article.detail', $relatedArticle->slug) }}">
+                    <a href="{{ route('detail', $relatedArticle->slug) }}">
                         <div class="aspect-[4/3] bg-gray-100 mb-4 overflow-hidden">
                             @if(!empty($relatedArticle->featured_image))
                             <img src="{{ asset('storage/' . $relatedArticle->featured_image) }}" alt="{{ $relatedArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
