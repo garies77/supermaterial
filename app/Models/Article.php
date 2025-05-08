@@ -23,6 +23,8 @@ class Article extends Model
         'is_published',
         'is_fullwidth',
         'published_at',
+        'footer_script',
+        'header_script',
     ];
     
     protected $casts = [

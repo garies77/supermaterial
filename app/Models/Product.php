@@ -25,6 +25,8 @@ class Product extends Model
         'tokopedia_link',
         'shopee_link',
         'short_description',
+        'header_script',
+        'footer_script',
     ];
     
     /**
